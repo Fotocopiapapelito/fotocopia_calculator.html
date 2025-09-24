@@ -21,147 +21,218 @@
         .price-list-grid { display: grid; grid-template-columns: 1fr auto; gap: 0.5rem 1.5rem; }
     </style>
 </head>
-<body class="bg-gray-100 flex items-start justify-center min-h-screen p-4">
+<body class="bg-gray-100 p-4">
 
-    <div class="w-full max-w-xl mx-auto">
-        <div class="p-6 md:p-8 bg-white rounded-2xl shadow-xl mb-6">
-            <header class="text-center mb-8">
-                <div class="flex justify-center items-center gap-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-cyan-500" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                      <path d="M14 3v4a1 1 0 0 0 1 1h4" />
-                      <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
-                      <line x1="9" y1="9" x2="10" y2="9" />
-                      <line x1="9" y1="13" x2="15" y2="13" />
-                      <line x1="9" y1="17" x2="15" y2="17" />
-                    </svg>
-                    <h1 class="text-3xl md:text-4xl font-bold text-gray-800">Papelito Malaga</h1>
+    <div class="flex flex-col md:flex-row md:items-start md:justify-center gap-6 max-w-7xl mx-auto">
+        <!-- Page Calculator -->
+        <div class="w-full md:w-1/3 lg:max-w-xs">
+             <div class="p-6 bg-white rounded-2xl shadow-xl sticky top-4">
+                <h2 class="text-xl font-semibold text-gray-700 text-center mb-4">Calculadora de Páginas</h2>
+                <div>
+                    <label for="pageRanges" class="block text-sm font-medium text-gray-700 mb-1">Rangos de páginas</label>
+                    <textarea id="pageRanges" placeholder="Ej: 1-5, 8, 11-13" rows="3" class="w-full px-4 py-2 text-gray-700 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"></textarea>
                 </div>
-                <p class="text-gray-500 mt-2">Tu Calculadora de Precios de Fotocopias</p>
-            </header>
+                <button id="calculatePagesBtn" class="mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    Calcular Páginas
+                </button>
+                <div class="mt-4 text-center">
+                    <p class="text-gray-600">Total de Páginas:</p>
+                    <p id="pageTotal" class="text-4xl font-bold text-blue-600">0</p>
+                </div>
+            </div>
+        </div>
 
-            <main>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label for="copies" class="block text-sm font-medium text-gray-700 mb-1">Cantidad</label>
-                        <input type="number" id="copies" name="copies" min="1" placeholder="ej: 50" class="w-full px-4 py-2 text-gray-700 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 transition">
+        <!-- Main Price Calculator -->
+        <div class="w-full md:w-2/3">
+            <div class="p-6 md:p-8 bg-white rounded-2xl shadow-xl mb-6">
+                <header class="text-center mb-8">
+                    <div class="flex justify-center items-center gap-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-cyan-500" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                          <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                          <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
+                          <line x1="9" y1="9" x2="10" y2="9" />
+                          <line x1="9" y1="13" x2="15" y2="13" />
+                          <line x1="9" y1="17" x2="15" y2="17" />
+                        </svg>
+                        <h1 class="text-3xl md:text-4xl font-bold text-gray-800">Papelito Malaga</h1>
                     </div>
-                    <div>
-                        <label for="copyType" class="block text-sm font-medium text-gray-700 mb-1">Tipo de Trabajo</label>
-                        <select id="copyType" name="copyType" class="w-full px-4 py-2 text-gray-700 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 transition">
-                            <option value="bw">Blanco y Negro A4</option>
-                            <option value="color">Color A4</option>
-                            <option value="a3_bw">Blanco y Negro A3</option>
-                            <option value="a3_color">Color A3</option>
-                            <option value="cartulina_color">Cartulina Color</option>
-                            <option value="cartulina_bw">Cartulina B/N</option>
-                            <option value="foto">Papel de Foto</option>
-                            <option value="pegatina">Papel Pegatina</option>
-                            <option value="escaner">Escanear a Email</option>
-                            <option value="dni">Copia DNI</option>
+                    <p class="text-gray-500 mt-2">Tu Calculadora de Precios de Fotocopias</p>
+                </header>
+
+                <main>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="copies" class="block text-sm font-medium text-gray-700 mb-1">Cantidad</label>
+                            <input type="number" id="copies" name="copies" min="1" placeholder="ej: 50" class="w-full px-4 py-2 text-gray-700 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 transition">
+                        </div>
+                        <div>
+                            <label for="copyType" class="block text-sm font-medium text-gray-700 mb-1">Tipo de Trabajo</label>
+                            <select id="copyType" name="copyType" class="w-full px-4 py-2 text-gray-700 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 transition">
+                                <option value="bw">Blanco y Negro A4</option>
+                                <option value="color">Color A4</option>
+                                <option value="a3_bw">Blanco y Negro A3</option>
+                                <option value="a3_color">Color A3</option>
+                                <option value="cartulina_color">Cartulina Color</option>
+                                <option value="cartulina_bw">Cartulina B/N</option>
+                                <option value="foto">Papel de Foto</option>
+                                <option value="pegatina">Papel Pegatina</option>
+                                <option value="escaner">Escanear a Email</option>
+                                <option value="dni">Copia DNI</option>
+                            </select>
+                        </div>
+                    </div>
+                     <div id="sides-container" class="mt-4">
+                        <label for="sides" class="block text-sm font-medium text-gray-700 mb-1">Caras</label>
+                        <select id="sides" name="sides" class="w-full px-4 py-2 text-gray-700 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 transition">
+                            <option value="one">Una Cara</option>
+                            <option value="double">Doble Cara</option>
                         </select>
                     </div>
-                </div>
-                 <div id="sides-container" class="mt-4">
-                    <label for="sides" class="block text-sm font-medium text-gray-700 mb-1">Caras</label>
-                    <select id="sides" name="sides" class="w-full px-4 py-2 text-gray-700 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 transition">
-                        <option value="one">Una Cara</option>
-                        <option value="double">Doble Cara</option>
-                    </select>
-                </div>
-                <div class="mt-6 text-center">
-                    <button id="addItemBtn" class="w-full bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-4 rounded-lg shadow-md transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500">
-                        Añadir al Total
-                    </button>
-                </div>
-                
-                <div id="ticket" class="mt-8 pt-6 border-t border-gray-200">
-                     <h2 class="text-xl font-semibold text-gray-700 text-center mb-4">Cuenta Total</h2>
-                     <div id="itemList" class="space-y-2 mb-4"></div>
-                     <div class="text-right text-2xl font-bold text-gray-800 border-t pt-2">
-                         TOTAL: <span id="grandTotal">€0.00</span>
-                     </div>
-                </div>
-
-                <div id="change-calculator" class="mt-6 pt-6 border-t border-dashed border-gray-300">
-                    <label for="received" class="block text-sm font-medium text-gray-700 mb-1">Dinero Recibido</label>
-                    <input type="number" id="received" name="received" placeholder="ej: 20" class="w-full px-4 py-2 text-gray-700 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 transition">
-                    <div class="mt-2 text-right text-lg font-semibold text-blue-600">
-                        Cambio: <span id="change">€0.00</span>
+                    <div class="mt-6 grid grid-cols-2 gap-4">
+                        <button id="addItemBtn" class="w-full bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-4 rounded-lg shadow-md transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500">
+                            Añadir al Total
+                        </button>
+                        <button id="clearBtn" class="w-full bg-gray-500 hover:bg-gray-600 text-white font-bold py-3 px-4 rounded-lg shadow-md transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                            Limpiar Todo
+                        </button>
                     </div>
-                </div>
-            </main>
+                    
+                    <div id="ticket" class="mt-8 pt-6 border-t border-gray-200">
+                         <h2 class="text-xl font-semibold text-gray-700 text-center mb-4">Cuenta Total</h2>
+                         <div id="itemList" class="space-y-2 mb-4"></div>
+                         <div class="text-right text-2xl font-bold text-gray-800 border-t pt-2">
+                             TOTAL: <span id="grandTotal">€0.00</span>
+                         </div>
+                    </div>
+
+                    <div id="change-calculator" class="mt-6 pt-6 border-t border-dashed border-gray-300">
+                        <label for="received" class="block text-sm font-medium text-gray-700 mb-1">Dinero Recibido</label>
+                        <input type="number" id="received" name="received" placeholder="ej: 20" class="w-full px-4 py-2 text-gray-700 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500 transition">
+                        <div class="mt-2 text-right text-lg font-semibold text-blue-600">
+                            Cambio: <span id="change">€0.00</span>
+                        </div>
+                    </div>
+                </main>
+            </div>
+
+            <!-- Price List -->
+            <div class="p-6 md:p-8 bg-white rounded-2xl shadow-xl">
+                 <h2 class="text-xl font-semibold text-gray-700 text-center mb-4">Lista de Precios</h2>
+                 <div class="text-sm text-gray-600 space-y-4">
+                    <div>
+                        <h3 class="font-bold text-gray-800 border-b pb-1 mb-2">Fotocopias B/N (A4)</h3>
+                        <div class="price-list-grid">
+                            <span>1-10 copias:</span> <span class="font-mono">€0.10</span>
+                            <span>11-100 copias:</span> <span class="font-mono">€0.08 (una cara) / €0.07 (doble)</span>
+                            <span>101-500 copias:</span> <span class="font-mono">€0.06 (una cara) / €0.048 (doble)</span>
+                            <span>+501 copias:</span> <span class="font-mono">€0.048 (una cara) / €0.042 (doble)</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-gray-800 border-b pb-1 mb-2">Fotocopias Color (A4)</h3>
+                        <div class="price-list-grid">
+                            <span>1-11 copias:</span> <span class="font-mono">€0.40</span>
+                            <span>12-20 copias:</span> <span class="font-mono">€0.35 (una cara) / €0.30 (doble)</span>
+                            <span>21-50 copias:</span> <span class="font-mono">€0.30 (una cara) / €0.28 (doble)</span>
+                            <span>+51 copias:</span> <span class="font-mono">€0.28 (una cara) / €0.25 (doble)</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-gray-800 border-b pb-1 mb-2">Fotocopias B/N (A3)</h3>
+                        <div class="price-list-grid">
+                            <span>1-11 copias:</span> <span class="font-mono">€0.45</span>
+                            <span>+12 copias:</span> <span class="font-mono">€0.35</span>
+                        </div>
+                    </div>
+                     <div>
+                        <h3 class="font-bold text-gray-800 border-b pb-1 mb-2">Fotocopias Color (A3)</h3>
+                        <div class="price-list-grid">
+                            <span>1-11 copias:</span> <span class="font-mono">€1.00</span>
+                            <span>+12 copias:</span> <span class="font-mono">€0.90</span>
+                        </div>
+                    </div>
+                     <div>
+                        <h3 class="font-bold text-gray-800 border-b pb-1 mb-2">Papeles Especiales</h3>
+                        <div class="price-list-grid">
+                            <span>Cartulina Color:</span> <span class="font-mono">€1.20 (<10) / €1.10 (>10)</span>
+                            <span>Cartulina B/N:</span> <span class="font-mono">€1.00 (<10) / €0.90 (>10)</span>
+                            <span>Papel de Foto:</span> <span class="font-mono">€1.50 (<10) / €1.20 (>10)</span>
+                            <span>Papel Pegatina:</span> <span class="font-mono">€0.50</span>
+                        </div>
+                    </div>
+                     <div>
+                        <h3 class="font-bold text-gray-800 border-b pb-1 mb-2">Otros Servicios</h3>
+                        <div class="price-list-grid">
+                            <span>Escanear a Email (por pág):</span> <span class="font-mono">€0.10</span>
+                            <span>Tasa envío Email:</span> <span class="font-mono">€0.50</span>
+                            <span>Copia DNI:</span> <span class="font-mono">€0.20</span>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+
+            <footer class="text-center mt-6 mb-4">
+                <p class="text-xs text-gray-500">
+                    Calle la Regente 23, Local Papelito<br>29009 Málaga
+                </p>
+            </footer>
         </div>
-
-        <!-- Price List -->
-        <div class="p-6 md:p-8 bg-white rounded-2xl shadow-xl">
-             <h2 class="text-xl font-semibold text-gray-700 text-center mb-4">Lista de Precios</h2>
-             <div class="text-sm text-gray-600 space-y-4">
-                <div>
-                    <h3 class="font-bold text-gray-800 border-b pb-1 mb-2">Fotocopias B/N (A4)</h3>
-                    <div class="price-list-grid">
-                        <span>1-10 copias:</span> <span class="font-mono">€0.10</span>
-                        <span>11-100 copias:</span> <span class="font-mono">€0.08 (una cara) / €0.07 (doble)</span>
-                        <span>101-500 copias:</span> <span class="font-mono">€0.06 (una cara) / €0.048 (doble)</span>
-                        <span>+501 copias:</span> <span class="font-mono">€0.048 (una cara) / €0.042 (doble)</span>
-                    </div>
-                </div>
-                <div>
-                    <h3 class="font-bold text-gray-800 border-b pb-1 mb-2">Fotocopias Color (A4)</h3>
-                    <div class="price-list-grid">
-                        <span>1-11 copias:</span> <span class="font-mono">€0.40</span>
-                        <span>12-20 copias:</span> <span class="font-mono">€0.35 (una cara) / €0.30 (doble)</span>
-                        <span>21-50 copias:</span> <span class="font-mono">€0.30 (una cara) / €0.28 (doble)</span>
-                        <span>+51 copias:</span> <span class="font-mono">€0.28 (una cara) / €0.25 (doble)</span>
-                    </div>
-                </div>
-                <div>
-                    <h3 class="font-bold text-gray-800 border-b pb-1 mb-2">Fotocopias B/N (A3)</h3>
-                    <div class="price-list-grid">
-                        <span>1-11 copias:</span> <span class="font-mono">€0.45</span>
-                        <span>+12 copias:</span> <span class="font-mono">€0.35</span>
-                    </div>
-                </div>
-                 <div>
-                    <h3 class="font-bold text-gray-800 border-b pb-1 mb-2">Fotocopias Color (A3)</h3>
-                    <div class="price-list-grid">
-                        <span>1-11 copias:</span> <span class="font-mono">€1.00</span>
-                        <span>+12 copias:</span> <span class="font-mono">€0.90</span>
-                    </div>
-                </div>
-                 <div>
-                    <h3 class="font-bold text-gray-800 border-b pb-1 mb-2">Papeles Especiales</h3>
-                    <div class="price-list-grid">
-                        <span>Cartulina Color:</span> <span class="font-mono">€1.20 (<10) / €1.10 (>10)</span>
-                        <span>Cartulina B/N:</span> <span class="font-mono">€1.00 (<10) / €0.90 (>10)</span>
-                        <span>Papel de Foto:</span> <span class="font-mono">€1.50 (<10) / €1.20 (>10)</span>
-                        <span>Papel Pegatina:</span> <span class="font-mono">€0.50</span>
-                    </div>
-                </div>
-                 <div>
-                    <h3 class="font-bold text-gray-800 border-b pb-1 mb-2">Otros Servicios</h3>
-                    <div class="price-list-grid">
-                        <span>Escanear a Email (por pág):</span> <span class="font-mono">€0.10</span>
-                        <span>Tasa envío Email:</span> <span class="font-mono">€0.50</span>
-                        <span>Copia DNI:</span> <span class="font-mono">€0.20</span>
-                    </div>
-                </div>
-             </div>
-        </div>
-
-        <footer class="text-center mt-6 mb-4">
-            <p class="text-xs text-gray-500">
-                Calle la Regente 23, Local Papelito<br>29009 Málaga
-            </p>
-        </footer>
     </div>
     <script>
-        // DOM Elements
+        // --- Page Calculator Elements & Logic ---
+        const pageRangesInput = document.getElementById('pageRanges');
+        const calculatePagesBtn = document.getElementById('calculatePagesBtn');
+        const pageTotalP = document.getElementById('pageTotal');
+
+        function parseAndCalculatePages() {
+            const input = pageRangesInput.value.trim();
+            if (!input) {
+                pageTotalP.textContent = '0';
+                pageTotalP.classList.remove('text-red-500');
+                return;
+            }
+
+            let total = 0;
+            const parts = input.split(/[,;\n]/); // Split by comma, semicolon, or newline
+
+            try {
+                for (const part of parts) {
+                    const trimmedPart = part.trim();
+                    if (!trimmedPart) continue;
+
+                    if (trimmedPart.includes('-')) {
+                        const range = trimmedPart.split('-').map(n => parseInt(n.trim()));
+                        if (range.length !== 2 || isNaN(range[0]) || isNaN(range[1]) || range[0] <= 0 || range[1] < range[0]) {
+                            throw new Error('Rango inválido');
+                        }
+                        total += (range[1] - range[0] + 1);
+                    } else {
+                        const num = parseInt(trimmedPart);
+                        if (isNaN(num) || num <= 0) {
+                            throw new Error('Número inválido');
+                        }
+                        total += 1;
+                    }
+                }
+                pageTotalP.textContent = total;
+                pageTotalP.classList.remove('text-red-500');
+            } catch (error) {
+                pageTotalP.textContent = 'Error';
+                pageTotalP.classList.add('text-red-500');
+            }
+        }
+        calculatePagesBtn.addEventListener('click', parseAndCalculatePages);
+        pageRangesInput.addEventListener('input', parseAndCalculatePages); // Auto-calculate on input
+
+
+        // --- Price Calculator DOM Elements ---
         const copiesInput = document.getElementById('copies');
         const copyTypeSelect = document.getElementById('copyType');
         const sidesSelect = document.getElementById('sides');
         const sidesContainer = document.getElementById('sides-container');
         const addItemBtn = document.getElementById('addItemBtn');
+        const clearBtn = document.getElementById('clearBtn');
         const itemListDiv = document.getElementById('itemList');
         const grandTotalSpan = document.getElementById('grandTotal');
         const receivedInput = document.getElementById('received');
@@ -190,30 +261,31 @@
             const copyType = copyTypeSelect.value;
             const sides = sidesSelect.value;
 
-            // For some types, a quantity of 0 is acceptable if we default to 1
             if (numCopies <= 0 && !['escaner', 'dni'].includes(copyType)) return null;
 
             let pricePerCopy = 0;
             let subTotal = 0;
             let breakdownText = '';
             const typeText = copyTypeSelect.options[copyTypeSelect.selectedIndex].text;
+            
+            const formatDisplayPrice = (p) => p < 0.1 ? p.toFixed(3) : p.toFixed(2);
 
             if (copyType === 'pegatina' || copyType === 'dni') {
-                const effectiveCopies = numCopies > 0 ? numCopies : 1; // Default to 1 for DNI or single sticker
+                const effectiveCopies = numCopies > 0 ? numCopies : 1;
                 pricePerCopy = prices[copyType];
                 subTotal = effectiveCopies * pricePerCopy;
-                breakdownText = `${effectiveCopies} x ${typeText}`;
+                breakdownText = `${effectiveCopies} x ${typeText} @ €${formatDisplayPrice(pricePerCopy)}`;
             } else if (copyType === 'escaner') {
-                const pages = numCopies > 0 ? numCopies : 1; // Assume at least 1 page for the fee
+                const pages = numCopies > 0 ? numCopies : 1;
                 subTotal = (pages * prices.escaner.perPage) + prices.escaner.emailFee;
-                breakdownText = `${pages} pág. escaneadas + envío email`;
+                breakdownText = `${pages} pág. escaneadas (@ €${prices.escaner.perPage.toFixed(2)}) + envío`;
             } else if (['cartulina_color', 'cartulina_bw', 'foto'].includes(copyType)) {
                 if (numCopies <= 0) return null;
                 const tier = prices[copyType].find(t => numCopies <= t.max);
                 if (tier) {
                     pricePerCopy = tier.price;
                     subTotal = numCopies * pricePerCopy;
-                    breakdownText = `${numCopies} x ${typeText} @ €${pricePerCopy.toFixed(2)}`;
+                    breakdownText = `${numCopies} x ${typeText} @ €${formatDisplayPrice(pricePerCopy)}`;
                 }
             } else { // bw, color, a3_bw, a3_color
                 if (numCopies <= 0) return null;
@@ -224,7 +296,7 @@
                         pricePerCopy = tier.price;
                         subTotal = numCopies * pricePerCopy;
                         let sidesText = sides === 'one' ? '1 cara' : '2 caras';
-                        breakdownText = `${numCopies} x ${typeText}, ${sidesText}`;
+                        breakdownText = `${numCopies} x ${typeText}, ${sidesText} @ €${formatDisplayPrice(pricePerCopy)}`;
                     }
                 }
             }
@@ -249,10 +321,18 @@
             if (item && item.subTotal > 0) {
                 items.push(item);
                 renderTicket();
-                // Reset inputs
                 copiesInput.value = '';
                 copiesInput.focus();
             }
+        }
+
+        function clearOrder() {
+            items = [];
+            grandTotal = 0;
+            receivedInput.value = '';
+            copiesInput.value = '';
+            renderTicket();
+            copiesInput.focus();
         }
         
         function calculateChange(){
@@ -270,8 +350,9 @@
             }
         }
 
-        // Event Listeners
+        // --- Price Calculator Event Listeners ---
         addItemBtn.addEventListener('click', handleAddItem);
+        clearBtn.addEventListener('click', clearOrder);
         copyTypeSelect.addEventListener('change', toggleSidesVisibility);
         receivedInput.addEventListener('input', calculateChange);
         
@@ -280,4 +361,3 @@
     </script>
 </body>
 </html>
-
